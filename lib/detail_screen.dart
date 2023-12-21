@@ -16,7 +16,7 @@ class DetailScreen extends StatelessWidget {
         backgroundColor: AppColors.cardColorDarkGrey,
         title: Text(
           bento.bentoTitle,
-          style: TextStyle(
+          style: const TextStyle(
               color: Colors.white, fontWeight: FontWeight.bold, fontSize: 16),
         ),
         centerTitle: true,
@@ -24,8 +24,8 @@ class DetailScreen extends StatelessWidget {
           onTap: () {
             Navigator.of(context).pop();
           },
-          child: ImageIcon(
-            AssetImage("images/icon-back.png"),
+          child: const ImageIcon(
+            AssetImage("images/icon-back.png"), color: Colors.white,
           ),
         ),
       ),
@@ -44,19 +44,19 @@ class DetailScreen extends StatelessWidget {
                   ),
                   // deskripsi
                   Container(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         left: 25, right: 25, top: 20, bottom: 15),
-                    child: Container(
+                    child: SizedBox(
                       width: double.maxFinite,
                       child: Text(
                         bento.deskripsiBento,
                         textAlign: TextAlign.justify,
-                        style: TextStyle(color: Colors.white),
+                        style: const TextStyle(color: Colors.white),
                       ),
                     ),
                   ),
                   // bahan-bahan
-                  Text(
+                  const Text(
                     'Bahan-bahan',
                     style: TextStyle(
                         color: Colors.white,
@@ -65,17 +65,17 @@ class DetailScreen extends StatelessWidget {
                   ),
                   Container(
                       width: double.maxFinite,
-                      padding: EdgeInsets.only(
+                      padding: const EdgeInsets.only(
                           left: 25, right: 25, top: 5, bottom: 5),
                       child: Text(
                         bento.bahanBahan,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
                       )),
                   // tahap-tahap
-                  Text(
+                  const Text(
                     'Cara membuat',
                     style: TextStyle(
                         color: Colors.white,
@@ -85,18 +85,18 @@ class DetailScreen extends StatelessWidget {
                   for (int i = 0; i < bento.tahapTahap.length; i++) ...{
                     for (int j = 0; j < bento.tahapTahap[1].length; j++) ...{
                       if (bento.tahapTahap[j] == bento.tahapTahap[0]) ...[
-                        Text('Langkah ' + (i + 1).toString(),
-                            style: TextStyle(
+                        Text('Langkah ${i + 1}',
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold)),
                         Container(
                             width: double.maxFinite,
-                            padding: EdgeInsets.only(
+                            padding: const EdgeInsets.only(
                                 left: 25, right: 25, top: 5, bottom: 5),
                             child: Text(
                               bento.tahapTahap[i][j],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 14,
                                   fontWeight: FontWeight.normal),
@@ -119,7 +119,7 @@ class DetailScreen extends StatelessWidget {
                                             value:
                                             downloadProgress.progress),
                                     errorWidget: (context, url, error) =>
-                                        Icon(Icons.error),
+                                        const Icon(Icons.error),
                                   ),
                                 ),
                               );
@@ -132,10 +132,10 @@ class DetailScreen extends StatelessWidget {
                   // referensi
                   ,
                   Container(
-                    padding: EdgeInsets.all(25),
+                    padding: const EdgeInsets.all(25),
                     child: SelectableText(
-                      "Referensi Resep: " + bento.referensi,
-                      style: TextStyle(
+                      "Referensi Resep: ${bento.referensi}",
+                      style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.normal,
                           fontSize: 14),

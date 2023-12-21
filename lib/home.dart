@@ -27,13 +27,13 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: Column(
           children: [
             // search bar
             Container(
-              padding: const EdgeInsets.all(12),
-              margin: const EdgeInsets.only(left: 25, right: 25, top: 25),
+              margin: const EdgeInsets.only(left: 25, right: 25, top: 5),
               child: TextField(
                 onChanged: (value) => updateList(value),
                 decoration: InputDecoration(
@@ -44,13 +44,13 @@ class _MyHomePageState extends State<MyHomePage> {
                         borderSide: BorderSide.none),
                     hintText: 'Cari makanan...',
                     prefixIcon: ImageIcon(
-                      AssetImage('images/ic-search.png'),
+                      const AssetImage('images/ic-search.png'),
                       color: AppColors.cardColorDarkGrey,
                       size: 24,
                     )),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             // list bento
@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 child: ListView.builder(
               itemBuilder: (context, index) {
                 return Container(
-                  margin: EdgeInsets.only(left: 25, right: 25, bottom: 10),
+                  margin: const EdgeInsets.only(left: 25, right: 25, bottom: 10),
                   child: InkWell(
                     customBorder: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
@@ -98,7 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                                   value: downloadProgress
                                                       .progress),
                                           errorWidget: (context, url, error) =>
-                                              Icon(Icons.error),
+                                              const Icon(Icons.error),
                                         )))),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -118,14 +118,14 @@ class _MyHomePageState extends State<MyHomePage> {
                                     height: 10,
                                   ),
                                   Container(
-                                    padding: EdgeInsets.only(
+                                    padding: const EdgeInsets.only(
                                         left: 17, right: 17, bottom: 17),
                                     child: Text(
                                       displayList[index].deskripsiBento,
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 5,
                                       textAlign: TextAlign.justify,
-                                      style: TextStyle(color: Colors.white),
+                                      style: const TextStyle(color: Colors.white),
                                     ),
                                   )
                                 ],

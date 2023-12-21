@@ -16,6 +16,39 @@ class _WelcomePageState extends State<WelcomePage> {
   int pageChanged = 0;
   late PageController _pageController;
 
+  @override
+  void initState() {
+    _pageController = PageController(initialPage: 0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints) {
+            if (constraints.maxWidth <= 600) {
+              return OnboardingList(pageController: _pageController, paddingTop: 200,);
+            } else {
+              return OnboardingList(pageController: _pageController, paddingTop: 50,);
+            }
+          }
+      ),
+    );
+  }
+}
+
+class OnboardingList extends StatelessWidget {
+  PageController pageController;
+  final double paddingTop;
+  OnboardingList({super.key, required this.pageController, required this.paddingTop,});
+
   List bg = [
     'bg-app-1.png',
     'bg-app-2.png',
@@ -36,46 +69,36 @@ class _WelcomePageState extends State<WelcomePage> {
     'Karena resep-resep sudah tersedia dalam aplikasi Bento Umeezo'
   ];
 
-  @override
-  void initState() {
-    _pageController = PageController(initialPage: 0);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
-  }
-
   void nextPage() {
-    _pageController.nextPage(
+    pageController.nextPage(
         duration: const Duration(milliseconds: 100), curve: Curves.bounceIn);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: PageView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: images.length,
-          controller: _pageController,
-          itemBuilder: (_, index) {
-            return Container(
-              width: double.maxFinite,
-              height: double.maxFinite,
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage("images/" + bg[index]),
-                      fit: BoxFit.cover)),
+    return PageView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: images.length,
+        controller: pageController,
+        itemBuilder: (_, index) {
+          return Container(
+            width: double.maxFinite,
+            height: double.maxFinite,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage("images/" + bg[index]),
+                    fit: BoxFit.cover)),
+            child: SingleChildScrollView(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset("images/" + images[index]),
+                  Container(
+                      padding: EdgeInsets.only(top: paddingTop),
+                      child: Image.asset("images/" + images[index])),
                   const SizedBox(
                     height: 14,
                   ),
-                  Container(
+                  SizedBox(
                     width: 257,
                     child: AppLargeText(
                       text: textHeader[index],
@@ -87,7 +110,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   const SizedBox(
                     height: 15,
                   ),
-                  Container(
+                  SizedBox(
                     width: 287,
                     child: AppText(
                       text: textFooter[index],
@@ -102,7 +125,7 @@ class _WelcomePageState extends State<WelcomePage> {
                       onPressed: () {
                         if (index == images.length - 1) {
                           Navigator.pushReplacement(context,
-                              MaterialPageRoute(builder: (_) => MyHomePage()));
+                              MaterialPageRoute(builder: (_) => const MyHomePage()));
                         }
                         nextPage();
                       },
@@ -132,8 +155,9 @@ class _WelcomePageState extends State<WelcomePage> {
                   )
                 ],
               ),
-            );
-          }),
-    );
+            ),
+          );
+        });
   }
 }
+
